@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/main.css">
+    <title>Weather</title>
+</head>
+<body class="container mt-5">
+
+    <% if (isRegistered) { %>
+        <div class="text-right">
+            <a href="/logout" class="btn btn-warning">Logout</a>
+        </div>
+    <% } %>
+
+    <% if (!isRegistered) { %>
+        <div class="text-right">
+            <a href="/register" class="btn btn-secondary mr-2">Sign Up</a>
+            <a href="/login" class="btn btn-info">Login</a>
+        </div>
+    <% } %>
+
+    <% if (typeof weather !=='undefined' && weather) { %>
+    <div class="mt-5 mx-auto text-center">
+        <h2 class="mb-4">Current Weather</h2>
+
+        <div class="weather-info">
+            <p class="info-item"><strong>Temperature:</strong> <%= weather.temp %>°C</p>
+            <p class="info-item"><strong>Description:</strong> <%= weather.description %></p>
+            <img src="<%= weather.imgURL %>" alt="Weather Icon" class="weather-icon img-fluid">
+        </div>
+
+        <div class="weather-details">
+            <p class="info-item"><strong>Feels Like:</strong> <%= weather.feelsLike %>°C</p>
+            <p class="info-item"><strong>Humidity:</strong> <%= weather.humidity %>%</p>
+        </div>
+    </div>
+    <% } %>
+
+    <div class="container">
+        <a href="/" class="text-decoration-none">
+            <h1 class="text-center">Welcome</h1>
+        </a>
+
+        <% if (typeof error !=='undefined' && error) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+
+        <form action="/weather" method="get" class="text-center">
+            <div class="form-group">
+                <label for="city">Enter city:</label>
+                <input type="text" id="city" name="city" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Weather</button>
+        </form>
+    </div>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSNERGFARriiKLB-9Y82Uv6oUoGvUZUmU&callback=initMap"></script>
+
+    <footer class="mt-5 text-center">
+        <hr>
+        <h2>Toleubaeva Aiym SE-2205</h2>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
